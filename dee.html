@@ -1,0 +1,1036 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>For Deborah 💙 — From Junior</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+html,body{height:100%;overflow:hidden;font-family:'Segoe UI','Helvetica Neue',sans-serif;color:#12325c;background:#dff0ff;}
+.bg-layer{position:fixed;inset:0;z-index:0;background-size:400% 400%;animation:gradientShift 22s ease infinite;transition:opacity 1.2s ease;}
+@keyframes gradientShift{0%,100%{background-position:0% 50%;}50%{background-position:100% 50%;}}
+.screen{position:fixed;inset:0;z-index:2;display:flex;padding:22px 14px;overflow-y:auto;opacity:0;pointer-events:none;transition:opacity .5s ease;}
+.screen.active{opacity:1;pointer-events:auto;}
+.card{margin:auto;padding:36px 28px;max-width:680px;width:100%;text-align:center;border-radius:30px;position:relative;z-index:5;animation:floatIn .7s ease-out;background:rgba(255,255,255,.78);backdrop-filter:blur(20px) saturate(180%);-webkit-backdrop-filter:blur(20px) saturate(180%);box-shadow:0 25px 60px rgba(80,150,220,.28),0 0 60px rgba(120,200,255,.4),inset 0 0 0 1px rgba(255,255,255,.85);border:1px solid rgba(160,215,255,.6);}
+@keyframes floatIn{from{opacity:0;transform:translateY(-30px) scale(.95);}to{opacity:1;transform:translateY(0) scale(1);}}
+h1{font-size:clamp(1.5em,4.8vw,2.1em);color:#1d6fd1;margin-bottom:14px;line-height:1.35;text-shadow:0 0 24px rgba(120,200,255,.55);}
+h2{font-size:clamp(1.25em,4vw,1.75em);color:#1d6fd1;margin-bottom:12px;line-height:1.4;text-shadow:0 0 18px rgba(120,200,255,.4);}
+p{font-size:clamp(1em,3.1vw,1.1em);color:#335080;line-height:1.65;margin-bottom:12px;}
+.signature{margin-top:22px;font-style:italic;color:#5a6d94;font-size:clamp(.95em,2.9vw,1.05em);line-height:1.5;}
+.signature .name{color:#d44f8d;font-weight:bold;font-style:normal;}
+.btn{font-family:inherit;font-size:clamp(.98em,3.3vw,1.12em);font-weight:600;padding:14px 28px;border:none;border-radius:50px;cursor:pointer;transition:transform .25s,box-shadow .25s,background .3s;display:inline-block;text-decoration:none;color:#fff;margin:6px 4px;user-select:none;box-shadow:0 8px 22px rgba(80,150,220,.35);}
+.btn:active{transform:scale(.96);}
+.btn.primary{background:linear-gradient(135deg,#78b8ff,#1d6fd1);box-shadow:0 8px 24px rgba(80,150,220,.45),0 0 30px rgba(120,200,255,.5);}
+.btn.primary:hover{transform:translateY(-4px);box-shadow:0 16px 36px rgba(80,150,220,.55),0 0 40px rgba(120,200,255,.7);}
+.btn.ghost{background:linear-gradient(135deg,#c9a7e8,#9c7bd6);}
+.btn.truth-btn{background:linear-gradient(135deg,#7ec8ff,#1d6fd1);}
+.btn.truth-btn:hover{transform:translateY(-4px);}
+.btn.dare-btn{background:linear-gradient(135deg,#ff9a76,#e8623f);}
+.btn.dare-btn:hover{transform:translateY(-4px);}
+.btn.pink{background:linear-gradient(135deg,#ffb6d4,#d44f8d);}
+.btn.pink:hover{box-shadow:0 16px 32px rgba(212,79,141,.4);}
+
+/* FLOWER RAIN */
+.flower-rain{position:fixed;inset:0;z-index:1;pointer-events:none;overflow:hidden;}
+.flower-rain img{position:absolute;top:-140px;border-radius:50%;box-shadow:0 8px 24px rgba(70,130,190,.35),0 0 20px rgba(255,180,220,.5);will-change:transform;}
+@keyframes flowerFall{0%{transform:translateY(-140px) rotate(0deg);opacity:0;}8%{opacity:1;}92%{opacity:1;}100%{transform:translateY(115vh) rotate(360deg);opacity:0;}}
+
+/* GAME */
+.round-badge{display:inline-block;background:linear-gradient(135deg,#e6f0ff,#f5f9ff);color:#1d6fd1;font-weight:700;padding:6px 18px;border-radius:40px;font-size:.92em;margin-bottom:16px;border:1.5px solid #a8d4ff;box-shadow:0 0 18px rgba(140,200,255,.5);}
+.choices{display:flex;flex-direction:column;align-items:center;gap:18px;margin:24px auto 8px;padding:14px;position:relative;min-height:180px;justify-content:center;}
+.choice-row{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;position:relative;z-index:100;}
+#truthBtn,#dareBtn{position:relative;z-index:100;}
+#boredBtn{background:linear-gradient(135deg,#b8c4ff,#7a7dd8)!important;color:#fff!important;box-shadow:0 8px 22px rgba(120,110,220,.5),0 0 24px rgba(160,180,255,.5)!important;border:1px solid rgba(255,255,255,.4);transition:transform .18s,left .18s,top .18s,opacity .35s;z-index:10;}
+#boredBtn.dodging{position:absolute;z-index:5;}
+#boredMsg{margin-top:8px;font-size:.95em;color:#5a6d94;font-weight:600;min-height:22px;}
+.question-box{background:linear-gradient(135deg,#eaf4ff,#f5f9ff);border:2px dashed #a8d4ff;border-radius:20px;padding:22px 18px;margin:18px 0;text-align:left;box-shadow:0 0 24px rgba(140,200,255,.3);}
+.question-box.dare-box{background:linear-gradient(135deg,#fff0ec,#ffe8e3);border-color:#ffab8a;}
+.q-label{font-size:.75em;font-weight:700;letter-spacing:2.5px;color:#1d6fd1;margin-bottom:8px;}
+.dare-box .q-label{color:#e8623f;}
+.q-text{font-size:clamp(1em,3.3vw,1.12em);color:#213e6b;line-height:1.6;font-weight:600;}
+textarea{width:100%;font-family:inherit;font-size:1em;padding:13px 15px;border:2px solid #b8d4ff;border-radius:16px;resize:vertical;outline:none;background:#fbfdff;color:#213e6b;margin-bottom:12px;}
+textarea:focus{border-color:#78b8ff;box-shadow:0 0 16px rgba(120,200,255,.5);}
+.hidden{display:none!important;}
+
+/* ENVELOPES */
+.env-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;max-width:640px;margin:24px auto 10px;}
+.envelope{position:relative;aspect-ratio:1/1.15;border-radius:18px;background:linear-gradient(155deg,#fff 0%,#eaf4ff 55%,#c9e4ff 100%);box-shadow:0 12px 26px rgba(80,150,220,.25),0 0 30px rgba(140,200,255,.35),inset 0 1px 0 rgba(255,255,255,.9);cursor:pointer;transition:transform .35s,box-shadow .35s,opacity .4s;display:flex;flex-direction:column;align-items:center;justify-content:center;overflow:hidden;border:1px solid rgba(180,215,255,.8);}
+.envelope::before{content:'';position:absolute;top:0;left:0;right:0;height:6px;background:linear-gradient(90deg,#78b8ff,#c9a7e8,#ffb6d4,#78b8ff);background-size:300% 100%;animation:envGradient 6s linear infinite;}
+@keyframes envGradient{0%{background-position:0 0;}100%{background-position:300% 0;}}
+.envelope:hover{transform:translateY(-8px) scale(1.04);box-shadow:0 22px 45px rgba(80,150,220,.4),0 0 50px rgba(140,200,255,.6);}
+.envelope.opened{opacity:.5;cursor:default;transform:none;}
+.envelope.big{grid-column:2;grid-row:2;transform:scale(1.1);background:linear-gradient(155deg,#fff 0%,#f0ecff 55%,#d4c4ff 100%);box-shadow:0 18px 40px rgba(140,90,220,.4),0 0 50px rgba(180,150,255,.55);border:1.5px solid rgba(200,180,255,.9);}
+.envelope.big:hover{transform:scale(1.14) translateY(-6px);}
+.envelope:nth-child(1){grid-column:1;grid-row:1;}
+.envelope:nth-child(2){grid-column:2;grid-row:1;}
+.envelope:nth-child(3){grid-column:2;grid-row:2;}
+.envelope:nth-child(4){grid-column:3;grid-row:1;}
+.envelope:nth-child(5){grid-column:3;grid-row:2;}
+@media(max-width:520px){.env-grid{grid-template-columns:1fr 1fr;}.envelope:nth-child(1){grid-column:1;grid-row:1;}.envelope:nth-child(2){grid-column:2;grid-row:1;}.envelope:nth-child(3){grid-column:1/span 2;grid-row:3;}.envelope:nth-child(4){grid-column:1;grid-row:2;}.envelope:nth-child(5){grid-column:2;grid-row:2;}}
+.env-icon{font-size:clamp(2em,7vw,2.6em);margin-bottom:6px;filter:drop-shadow(0 3px 8px rgba(80,150,220,.4));}
+.env-label{font-size:clamp(.75em,2.4vw,.88em);color:#274b7a;font-weight:700;letter-spacing:.6px;padding:0 8px;}
+
+/* CHERRY PAGE */
+.cherry-page{background:linear-gradient(160deg,#ffe6f0,#ffc9e0 45%,#ffa8c8);}
+#cherryCanvas{position:fixed;inset:0;z-index:1;pointer-events:none;}
+.cherry-roam{position:relative;min-height:220px;margin-top:22px;display:flex;align-items:center;justify-content:center;z-index:5;}
+#cherryStay{position:absolute;z-index:20;transform-origin:center center;}
+#cherryAccept{position:relative;z-index:30;}
+.attempts-text{margin-top:8px;color:#d44f8d;font-weight:600;min-height:26px;}
+
+/* GARDEN */
+.garden-page{background:linear-gradient(180deg,#dff0ff 0%,#b3dcff 40%,#8cc8f5 100%);flex-direction:column;padding:80px 20px 40px;}
+.garden-header{text-align:center;margin-bottom:24px;z-index:5;position:relative;}
+.garden-header h2{color:#1d6fd1;}
+.garden-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:16px;max-width:820px;margin:0 auto;width:100%;z-index:5;position:relative;padding-bottom:40px;}
+.garden-flower{position:relative;border-radius:20px;overflow:hidden;box-shadow:0 12px 28px rgba(80,150,220,.3),0 0 24px rgba(140,200,255,.35);cursor:pointer;background:#fff;transition:transform .35s,box-shadow .35s;aspect-ratio:1/1;}
+.garden-flower:hover{transform:translateY(-8px) scale(1.05);box-shadow:0 22px 42px rgba(80,150,220,.5),0 0 40px rgba(140,200,255,.6);}
+.garden-flower img{width:100%;height:100%;object-fit:cover;display:block;}
+.garden-flower .flower-note{position:absolute;inset:0;background:rgba(30,90,160,.85);color:#fff;display:flex;align-items:center;justify-content:center;text-align:center;padding:16px;font-size:.85em;font-weight:600;opacity:0;transition:opacity .35s;line-height:1.5;backdrop-filter:blur(4px);}
+.garden-flower.show-note .flower-note{opacity:1;}
+
+/* CHEM */
+.chem-page{background:linear-gradient(180deg,#eef5ff 0%,#dbeaff 50%,#c0d9f5 100%);}
+.lab-area{display:flex;flex-direction:column;align-items:center;margin:20px 0 10px;}
+.beaker{position:relative;width:130px;height:160px;border:4px solid #a8c8e8;border-top:none;border-radius:0 0 18px 18px;background:rgba(255,255,255,.6);overflow:hidden;box-shadow:inset 0 0 30px rgba(120,160,220,.25),0 0 30px rgba(140,200,255,.4);}
+.liquid{position:absolute;bottom:0;left:0;right:0;height:0%;background:#cfe6ff;transition:height .6s,background .8s;border-radius:0 0 14px 14px;}
+.bubble{position:absolute;bottom:0;border-radius:50%;background:rgba(255,255,255,.7);border:1px solid rgba(180,210,255,.9);animation:bubbleUp linear forwards;}
+@keyframes bubbleUp{from{transform:translateY(0) scale(1);opacity:.9;}to{transform:translateY(-140px) scale(.4);opacity:0;}}
+.chem-palette{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin:16px 0 8px;}
+.chem-chip{display:flex;align-items:center;gap:8px;padding:9px 16px;border-radius:40px;background:#fff;box-shadow:0 4px 12px rgba(80,150,220,.25);font-size:.9em;font-weight:600;color:#213e6b;cursor:pointer;transition:transform .2s,box-shadow .2s;}
+.chem-chip:hover{transform:translateY(-3px);box-shadow:0 8px 20px rgba(80,150,220,.4),0 0 24px rgba(140,200,255,.5);}
+.chem-chip .dot{width:14px;height:14px;border-radius:50%;}
+.chem-status{margin-top:12px;font-size:.95em;font-weight:600;color:#1d6fd1;min-height:24px;}
+
+/* PI PAGE */
+.pi-page{background:linear-gradient(180deg,#eaf4ff,#cbe6ff);}
+.pi-display{font-family:'Courier New',monospace;font-size:clamp(1.2em,4.5vw,1.8em);color:#1d6fd1;margin:18px 0;padding:14px 16px;background:#fff;border-radius:16px;box-shadow:0 0 30px rgba(140,200,255,.5),inset 0 0 0 1px rgba(160,215,255,.5);letter-spacing:2px;min-height:2.3em;text-align:left;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.pi-int{color:#78b8ff;}
+.pi-cursor{animation:piBlink 1s step-end infinite;color:#78b8ff;margin-left:2px;}
+@keyframes piBlink{50%{opacity:0;}}
+.pi-progress{font-weight:700;color:#1d6fd1;font-size:.9em;letter-spacing:1.5px;margin-bottom:6px;}
+.pi-pad{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;max-width:360px;margin:22px auto 6px;}
+.pi-key{padding:14px 4px;border-radius:14px;background:linear-gradient(135deg,#78b8ff,#4a7bd6);color:#fff;font-weight:700;font-size:1.15em;cursor:pointer;user-select:none;box-shadow:0 6px 16px rgba(80,150,220,.4),0 0 20px rgba(140,200,255,.4);transition:transform .15s,box-shadow .15s;text-align:center;}
+.pi-key:hover{transform:translateY(-3px);box-shadow:0 12px 24px rgba(80,150,220,.55),0 0 30px rgba(140,200,255,.6);}
+.pi-key:active{transform:scale(.94);}
+.pi-msg{min-height:2em;font-weight:700;color:#1d6fd1;margin-top:10px;letter-spacing:.5px;}
+.pi-msg.wrong{color:#e8623f;animation:shake .4s;}
+@keyframes shake{0%,100%{transform:translateX(0);}25%{transform:translateX(-8px);}75%{transform:translateX(8px);}}
+.pi-quote{position:fixed;bottom:40px;left:50%;transform:translateX(-50%) translateY(220%);background:#fff;padding:16px 24px;border-radius:22px;box-shadow:0 20px 40px rgba(80,150,220,.4),0 0 60px rgba(140,200,255,.6);font-weight:600;color:#1d6fd1;max-width:min(90vw,480px);text-align:center;z-index:200;transition:transform .5s cubic-bezier(.5,1.4,.5,1);border:1px solid rgba(160,215,255,.7);line-height:1.5;}
+.pi-quote.show{transform:translateX(-50%) translateY(0);}
+.pi-quote .q-tag{display:inline-block;font-size:.68em;padding:3px 10px;border-radius:20px;background:#e6f0ff;color:#1d6fd1;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:8px;font-weight:800;}
+
+/* BACK + PARTICLES */
+.back-home{position:fixed;top:14px;left:14px;z-index:500;background:rgba(255,255,255,.9);color:#1d6fd1;border:1.5px solid rgba(160,215,255,.9);border-radius:40px;padding:9px 18px;font-family:inherit;font-weight:700;font-size:.88em;cursor:pointer;backdrop-filter:blur(10px);transition:transform .2s;box-shadow:0 6px 16px rgba(80,150,220,.25),0 0 20px rgba(140,200,255,.4);}
+.back-home:hover{transform:translateY(-2px);}
+.finale{animation:floatIn .8s ease-out;}
+.affirmations{list-style:none;text-align:left;margin:20px auto 0;max-width:520px;}
+.affirmations li{background:linear-gradient(135deg,#eaf4ff,#f5f0ff);border-left:4px solid #78b8ff;border-radius:12px;padding:13px 16px;margin-bottom:10px;font-size:clamp(.94em,3vw,1.05em);color:#213e6b;line-height:1.55;box-shadow:0 0 20px rgba(140,200,255,.3);}
+.heart{position:fixed;font-size:2.1em;animation:floatUp 4.2s ease-in-out forwards;pointer-events:none;z-index:2000;}
+@keyframes floatUp{0%{opacity:1;transform:translateY(0) rotate(0deg);}100%{opacity:0;transform:translateY(-1000px) rotate(360deg);}}
+.sparkle{position:fixed;width:9px;height:9px;background:#fff;border-radius:50%;pointer-events:none;z-index:1999;animation:sparkleAnim .9s ease-out forwards;box-shadow:0 0 8px rgba(140,200,255,.8);}
+@keyframes sparkleAnim{0%{opacity:1;transform:scale(0);}50%{opacity:1;transform:scale(1.4);}100%{opacity:0;transform:scale(0);}}
+.confetti{position:fixed;top:-20px;width:9px;height:14px;z-index:1998;pointer-events:none;border-radius:2px;animation:fall linear forwards;}
+@keyframes fall{from{transform:translateY(0) rotate(0deg);opacity:1;}to{transform:translateY(112vh) rotate(760deg);opacity:.85;}}
+@media(max-width:600px){.card{padding:26px 16px;border-radius:24px;}.btn{padding:12px 22px;}}
+</style>
+</head>
+<body>
+
+<div class="bg-layer" id="bgA"></div>
+<div class="bg-layer" id="bgB"></div>
+
+<!-- INTRO -->
+<div class="screen active" id="screen-intro">
+  <div class="flower-rain" id="flowerRain"></div>
+  <div class="card">
+    <h1>Hey Deborah 💙</h1>
+    <p>I built this whole thing for you. No reason — just because you deserve something made with care.</p>
+    <p>But first… <strong>3 rounds. Truth or Dare.</strong> One of them <em>will</em> be a dare. No running 😌</p>
+    <button class="btn primary" id="startGameBtn">Okay, let's play 🎲</button>
+    <p class="signature">— from your homeboy, <span class="name">Junior</span></p>
+  </div>
+</div>
+
+<!-- GAME -->
+<div class="screen" id="screen-game">
+  <button class="back-home" id="backFromGame">← Back</button>
+  <div class="card">
+    <div class="round-badge" id="roundBadge">Round 1 of 3</div>
+    <h2 id="gameTitle">Truth… or Dare? 😇😈</h2>
+    <p id="gameSub">Pick one. No take-backs.</p>
+    <div class="choices" id="gameChoices">
+      <div class="choice-row">
+        <button class="btn truth-btn" id="truthBtn">Truth 💬</button>
+        <button class="btn dare-btn" id="dareBtn">Dare 😈</button>
+      </div>
+      <button class="btn" id="boredBtn">I'm bored 🥱</button>
+    </div>
+    <div id="boredMsg"></div>
+    <div id="gameContent"></div>
+  </div>
+</div>
+
+<!-- BRIDGE -->
+<div class="screen" id="screen-bridge">
+  <button class="back-home" id="backFromBridge">← Back</button>
+  <div class="card">
+    <h2>Okay… you survived 😮‍💨</h2>
+    <p>Send me everything — or just keep going. Your call.</p>
+    <a class="btn primary" id="waLink" href="#" target="_blank" rel="noopener">Send on WhatsApp 💬</a>
+    <div style="margin-top:10px;">
+      <button class="btn primary" id="nextBtn">Next ➡️</button>
+    </div>
+  </div>
+</div>
+
+<!-- MAP -->
+<div class="screen" id="screen-map">
+  <button class="back-home" id="backFromMap">← Back</button>
+  <div class="card">
+    <h2>Five envelopes. One is for you.</h2>
+    <p>The one in the middle is my real message.</p>
+    <div class="env-grid">
+      <div class="envelope" data-target="screen-garden"><span class="env-icon">🌷</span><span class="env-label">Garden</span></div>
+      <div class="envelope" data-target="screen-cherry"><span class="env-icon">🌸</span><span class="env-label">Cherry Letter</span></div>
+      <div class="envelope big" data-target="screen-final"><span class="env-icon">💌</span><span class="env-label">From Junior</span></div>
+      <div class="envelope" data-target="screen-pi"><span class="env-icon">🔢</span><span class="env-label">Pi Challenge</span></div>
+      <div class="envelope" data-target="screen-chem"><span class="env-icon">🧪</span><span class="env-label">Chem Lab</span></div>
+    </div>
+    <p class="signature">Take your time. I'm not going anywhere. 💙</p>
+  </div>
+</div>
+
+<!-- CHERRY -->
+<div class="screen cherry-page" id="screen-cherry">
+  <canvas id="cherryCanvas"></canvas>
+  <button class="back-home" id="backFromCherry">← Back</button>
+  <div class="card">
+    <h2 id="cherryTitle">Deborah… can I be honest? 🌸</h2>
+    <p id="cherryText">You already know why I made this page.</p>
+    <div class="cherry-roam" id="cherryRoam">
+      <button class="btn primary" id="cherryAccept">I deserve better 👑</button>
+      <button class="btn pink" id="cherryStay">I won't leave him 💔</button>
+    </div>
+    <div id="cherryAttempts" class="attempts-text"></div>
+  </div>
+</div>
+
+<!-- GARDEN -->
+<div class="screen garden-page" id="screen-garden">
+  <button class="back-home" id="backFromGarden">← Back</button>
+  <div class="garden-header"><h2>A garden for you 🌷</h2><p>Tap any flower.</p></div>
+  <div class="garden-grid" id="gardenGrid"></div>
+</div>
+
+<!-- CHEM -->
+<div class="screen chem-page" id="screen-chem">
+  <button class="back-home" id="backFromChem">← Back</button>
+  <div class="card">
+    <h2>🧪 Junior's Mini Lab</h2>
+    <p>Mix whatever you want. Nothing can explode.</p>
+    <div class="lab-area"><div class="beaker" id="beaker"><div class="liquid" id="liquid"></div></div></div>
+    <div class="chem-palette" id="chemPalette"></div>
+    <div class="chem-status" id="chemStatus">The beaker is empty. Add something.</div>
+    <button class="btn ghost" id="clearBeaker">Clear beaker 🧼</button>
+  </div>
+</div>
+
+<!-- PI -->
+<div class="screen pi-page" id="screen-pi">
+  <button class="back-home" id="backFromPi">← Back</button>
+  <div class="card">
+    <h2>🔢 Junior's Pi Challenge</h2>
+    <p>Deborah, name Pi — digit by digit. Every correct digit unlocks a little something just for you.</p>
+    <div class="pi-display" id="piDisplay">
+      <span class="pi-int">3.</span><span id="piDigits"></span><span class="pi-cursor">_</span>
+    </div>
+    <div class="pi-progress" id="piProgress">Digit 1 of 100</div>
+    <div class="pi-pad" id="piPad"></div>
+    <div class="pi-msg" id="piMsg"></div>
+  </div>
+</div>
+
+<!-- FINAL -->
+<div class="screen" id="screen-final">
+  <button class="back-home" id="backFromFinal">← Back</button>
+  <div class="card">
+    <div class="finale">
+      <h2>Deborah. Read this slowly. 💙</h2>
+      <p>I'm not writing this as your ex. I'm writing this as your homeboy — the guy who watched you glow, dim, then glow again for someone who never noticed.</p>
+      <ul class="affirmations">
+        <li>💙 You are not hard to love — he was just lazy at it.</li>
+        <li>🌸 Someone will love you without needing a "sorry" every week.</li>
+        <li>👑 Walking away isn't losing him. It's finally choosing yourself.</li>
+        <li>✨ You survived every version of him. You'll survive the goodbye too.</li>
+        <li>🕊️ Peace is not boring. Peace is what you actually deserve.</li>
+        <li>💌 And you will never be alone — you've got me. Always.</li>
+      </ul>
+      <p style="margin-top:24px;">Message me when you're done.</p>
+      <p class="signature">— from your homeboy, <span class="name">Junior 💙</span></p>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ========= CONFIG ========= */
+const WHATSAPP_NUMBER = "254713329986";
+const WEB3FORMS_KEY = "e6755e6d-926d-453e-b8b8-68412a57b1e8";
+const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+
+/* ========= BACKGROUND ========= */
+const PALETTES = [
+  "linear-gradient(160deg,#e6f3ff,#c9e4ff 45%,#a8d4ff)",
+  "linear-gradient(160deg,#dff0ff,#b8dcff 45%,#8cc8f5)",
+  "linear-gradient(160deg,#eaf4ff,#cbe6ff 45%,#a0d4ff)",
+  "linear-gradient(160deg,#d8ecff,#b0d8ff 45%,#87ceeb)",
+  "linear-gradient(160deg,#e0f0ff,#c2e0ff 45%,#95d0ff)",
+  "linear-gradient(160deg,#eaf6ff,#cce8ff 45%,#a8daff)"
+];
+const bgA = document.getElementById('bgA'), bgB = document.getElementById('bgB');
+let palIndex = 0, activeLayer = 0;
+bgA.style.background = PALETTES[0]; bgA.style.opacity = 1; bgB.style.opacity = 0;
+function nextPalette(){
+  palIndex = (palIndex + 1) % PALETTES.length;
+  const layers = [bgA, bgB];
+  const inc = layers[1 - activeLayer], out = layers[activeLayer];
+  inc.style.background = PALETTES[palIndex]; inc.style.opacity = 1;
+  out.style.opacity = 0; activeLayer = 1 - activeLayer;
+}
+
+/* ========= HELPERS ========= */
+function createHeart(){
+  const h = document.createElement('div'); h.className = 'heart';
+  h.textContent = ['💙','💖','💕','💗','💝','🥰','🌸','✨'][Math.floor(Math.random()*8)];
+  h.style.left = Math.random()*window.innerWidth + 'px';
+  h.style.top = (window.innerHeight + 40) + 'px';
+  document.body.appendChild(h);
+  setTimeout(() => h.remove(), 4300);
+}
+function createSparkle(x, y, color='#fff'){
+  for (let i = 0; i < 6; i++){
+    const s = document.createElement('div'); s.className = 'sparkle';
+    s.style.left = (x + (Math.random()-.5)*60) + 'px';
+    s.style.top  = (y + (Math.random()-.5)*60) + 'px';
+    s.style.background = color;
+    document.body.appendChild(s); setTimeout(() => s.remove(), 950);
+  }
+}
+function confettiBurst(){
+  const colors = ['#78b8ff','#a855f7','#ffd93d','#4facfe','#43e97b','#ff8ab8','#fff'];
+  for (let i = 0; i < 80; i++) setTimeout(() => {
+    const c = document.createElement('div'); c.className = 'confetti';
+    c.style.left = Math.random()*100 + 'vw';
+    c.style.background = colors[Math.floor(Math.random()*colors.length)];
+    c.style.animationDuration = (2.2 + Math.random()*2) + 's';
+    c.style.width = (6 + Math.random()*8) + 'px';
+    c.style.height = (9 + Math.random()*10) + 'px';
+    document.body.appendChild(c);
+    setTimeout(() => c.remove(), 4600);
+  }, i * 25);
+}
+
+/* ========= FLOWER RAIN ========= */
+const HOME_FLOWERS = [
+  "https://images.unsplash.com/photo-1490750967868-88aa4486c946?w=120&h=120&fit=crop",
+  "https://images.unsplash.com/photo-1502977249166-824b3a8a4d6d?w=120&h=120&fit=crop",
+  "https://images.unsplash.com/photo-1519378058457-4c29a0a2efac?w=120&h=120&fit=crop",
+  "https://images.unsplash.com/photo-1508610048659-a06b669e3321?w=120&h=120&fit=crop",
+  "https://images.unsplash.com/photo-1470509037663-253afd7f0f51?w=120&h=120&fit=crop",
+  "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=120&h=120&fit=crop",
+  "https://images.unsplash.com/photo-1457089328109-e5d9bd499191?w=120&h=120&fit=crop",
+  "https://images.unsplash.com/photo-1497294815431-9365093b7331?w=120&h=120&fit=crop"
+];
+const flowerRain = document.getElementById('flowerRain');
+let flowerTimer = null, flowerActive = 0;
+function spawnFlower(){
+  if (flowerActive > 20) return;
+  const img = document.createElement('img');
+  img.src = HOME_FLOWERS[Math.floor(Math.random()*HOME_FLOWERS.length)];
+  const size = 36 + Math.random()*34;
+  img.style.width = size + 'px'; img.style.height = size + 'px';
+  img.style.left = (Math.random()*100) + 'vw';
+  const dur = 10 + Math.random()*6;
+  img.style.animation = `flowerFall ${dur}s linear forwards`;
+  flowerRain.appendChild(img); flowerActive++;
+  setTimeout(() => { img.remove(); flowerActive--; }, dur*1000 + 200);
+}
+function startFlowerRain(){
+  if (flowerTimer) return;
+  for (let i = 0; i < 12; i++) setTimeout(spawnFlower, i*350);
+  flowerTimer = setInterval(spawnFlower, 700);
+}
+function stopFlowerRain(){
+  if (flowerTimer) clearInterval(flowerTimer);
+  flowerTimer = null;
+}
+
+/* ========= CHERRY CANVAS ========= */
+const cherryCanvas = document.getElementById('cherryCanvas');
+const cctx = cherryCanvas.getContext('2d');
+let cherryRunning = false, petals = [], cherryRAF = null;
+let cMouseX = -9999, cMouseY = -9999;
+function resizeCherry(){ cherryCanvas.width = window.innerWidth; cherryCanvas.height = window.innerHeight; }
+function makePetal(){
+  return { x: Math.random()*cherryCanvas.width, y: -20-Math.random()*100,
+    size: 9+Math.random()*14, speedY: 0.35+Math.random()*0.9, speedX: (Math.random()-.5)*0.8,
+    rotation: Math.random()*Math.PI*2, rotSpeed: (Math.random()-.5)*0.03,
+    sway: Math.random()*Math.PI*2, swaySpeed: 0.008+Math.random()*0.022, opacity: 0.65+Math.random()*0.35 };
+}
+function drawPetal(p){
+  cctx.save(); cctx.translate(p.x, p.y); cctx.rotate(p.rotation); cctx.globalAlpha = p.opacity;
+  const s = p.size;
+  const grad = cctx.createRadialGradient(0, -s*0.5, 1, 0, -s*0.5, s*1.15);
+  grad.addColorStop(0,'#fff5fa'); grad.addColorStop(0.4,'#ffd6e8');
+  grad.addColorStop(0.75,'#ff9ec4'); grad.addColorStop(1,'#ff7ab0');
+  cctx.fillStyle = grad;
+  cctx.beginPath(); cctx.moveTo(0,0);
+  cctx.bezierCurveTo(s*0.6,-s*0.15,s*0.7,-s*0.8,0,-s*1.05);
+  cctx.bezierCurveTo(-s*0.7,-s*0.8,-s*0.6,-s*0.15,0,0); cctx.fill();
+  cctx.fillStyle = 'rgba(255,255,255,0.4)';
+  cctx.beginPath(); cctx.ellipse(-s*0.15,-s*0.55,s*0.14,s*0.24,-0.4,0,Math.PI*2); cctx.fill();
+  cctx.restore();
+}
+function cherryLoop(){
+  if (!cherryRunning) return;
+  cctx.clearRect(0,0,cherryCanvas.width,cherryCanvas.height);
+  if (petals.length < 160 && Math.random() < 0.75) petals.push(makePetal());
+  for (let i = petals.length-1; i >= 0; i--){
+    const p = petals[i];
+    p.sway += p.swaySpeed; p.x += p.speedX + Math.sin(p.sway)*0.7; p.y += p.speedY; p.rotation += p.rotSpeed;
+    const dx = p.x - cMouseX, dy = p.y - cMouseY, d2 = dx*dx + dy*dy;
+    if (d2 < 140*140){
+      const dist = Math.sqrt(d2)||1; const f = (1-dist/140)*3.5;
+      p.x += (dx/dist)*f; p.y += (dy/dist)*f; p.rotation += 0.02;
+    }
+    if (p.y > cherryCanvas.height+40 || p.x < -80 || p.x > cherryCanvas.width+80){ petals.splice(i,1); continue; }
+    drawPetal(p);
+  }
+  cherryRAF = requestAnimationFrame(cherryLoop);
+}
+function startCherryPetals(){
+  if (cherryRunning) return;
+  cherryRunning = true; resizeCherry(); petals = [];
+  for (let i = 0; i < 100; i++){ const p = makePetal(); p.y = Math.random()*cherryCanvas.height; petals.push(p); }
+  cherryLoop();
+}
+function stopCherryPetals(){
+  cherryRunning = false;
+  if (cherryRAF) cancelAnimationFrame(cherryRAF);
+  cherryRAF = null; petals = []; cctx.clearRect(0,0,cherryCanvas.width,cherryCanvas.height);
+}
+window.addEventListener('pointermove', e => { cMouseX = e.clientX; cMouseY = e.clientY; });
+window.addEventListener('pointerleave', () => { cMouseX = -9999; cMouseY = -9999; });
+window.addEventListener('resize', () => { if (cherryRunning) resizeCherry(); });
+
+/* ========= TRUTH OR DARE ========= */
+const TRUTHS = [
+  "Who is the person you hate the most? 😬 Be honest — nobody's reading this but me.",
+  "What is the most shallow reason you can't be friends with someone? 🙃 No filter.",
+  "Real talk: has he EVER actually changed… or does he just say sorry and do the exact same thing again? 🫣"
+];
+const DARE = "Go outside today and ask a STRANGER for a selfie. 📸 A real one. Then send it to me — I'll know if you cheated 😈";
+
+const gameState = { round: 1, dareDone: false, truthIndex: 0, answers: [] };
+
+const roundBadge  = document.getElementById('roundBadge');
+const gameTitle   = document.getElementById('gameTitle');
+const gameSub     = document.getElementById('gameSub');
+const gameChoices = document.getElementById('gameChoices');
+const gameContent = document.getElementById('gameContent');
+const truthBtn    = document.getElementById('truthBtn');
+const dareBtn     = document.getElementById('dareBtn');
+const boredBtn    = document.getElementById('boredBtn');
+const boredMsg    = document.getElementById('boredMsg');
+let boredDodges = 0;
+
+function startGame(){
+  goToScreen('screen-game');
+  gameState.round = 1; gameState.dareDone = false;
+  gameState.truthIndex = 0; gameState.answers = [];
+  renderRound();
+}
+
+function renderRound(){
+  roundBadge.textContent = `Round ${gameState.round} of 3`;
+  gameContent.classList.add('hidden'); gameContent.innerHTML = '';
+  gameChoices.classList.remove('hidden'); gameChoices.style.display = 'flex';
+
+  // reset bored button to natural flow
+  boredBtn.classList.remove('dodging');
+  boredBtn.removeAttribute('style');
+  boredDodges = 0; boredMsg.textContent = '';
+
+  const forcedDare = (gameState.round === 3 && !gameState.dareDone);
+  if (forcedDare){
+    truthBtn.style.display = 'none'; dareBtn.style.display = '';
+    gameTitle.textContent = "Final round 😈";
+    gameSub.textContent = "This one's a DARE. No choice this time, baby girl.";
+  } else if (gameState.dareDone){
+    truthBtn.style.display = ''; dareBtn.style.display = 'none';
+    gameTitle.textContent = "Truth 💬";
+    gameSub.textContent = "You already did your dare. The rest are truths.";
+  } else {
+    truthBtn.style.display = ''; dareBtn.style.display = '';
+    gameTitle.textContent = "Truth… or Dare? 😇😈";
+    gameSub.textContent = "Pick one. No take-backs.";
+  }
+}
+
+function dodgeBored(){
+  boredDodges++;
+  if (!boredBtn.classList.contains('dodging')) boredBtn.classList.add('dodging');
+
+  const c = gameChoices.getBoundingClientRect();
+  const bw = boredBtn.offsetWidth, bh = boredBtn.offsetHeight;
+  const scale = Math.max(0.55, 1 - boredDodges * 0.06);
+  const sw = bw * scale, sh = bh * scale;
+
+  const avoid = [truthBtn, dareBtn].filter(b => b && b.offsetWidth > 0).map(b => b.getBoundingClientRect());
+  const pad = 4;
+  const maxX = Math.max(pad, c.width - sw - pad*2);
+  const maxY = Math.max(pad, c.height - sh - pad*2);
+
+  let x, y, tries = 0;
+  do {
+    x = pad + Math.random() * maxX;
+    y = pad + Math.random() * maxY;
+    tries++;
+    const nl = c.left + x, nr = nl + sw, nt = c.top + y, nb = nt + sh;
+    const gap = 24;
+    let bad = false;
+    for (const a of avoid){
+      const overlaps = !(nr+gap < a.left || nl-gap > a.right || nb+gap < a.top || nt-gap > a.bottom);
+      if (overlaps){ bad = true; break; }
+    }
+    if (!bad || tries > 80) break;
+  } while (true);
+
+  boredBtn.style.left = x + 'px';
+  boredBtn.style.top  = y + 'px';
+  boredBtn.style.transform = `scale(${scale})`;
+
+  createSparkle(c.left+x+sw/2, c.top+y+sh/2, '#b8c4ff');
+
+  if (boredDodges === 1) boredMsg.textContent = "That button doesn't work 😌";
+  else if (boredDodges === 3) boredMsg.textContent = "Keep trying… 🥱";
+  else if (boredDodges === 6) boredMsg.textContent = "It's getting smaller 😭";
+  else if (boredDodges >= 9) boredMsg.textContent = "Just pick Truth or Dare, Deborah 💙";
+}
+
+if (!isMobile) boredBtn.addEventListener('mouseenter', dodgeBored);
+boredBtn.addEventListener('click', e => { e.preventDefault(); dodgeBored(); });
+boredBtn.addEventListener('touchstart', e => { e.preventDefault(); dodgeBored(); }, { passive: false });
+
+function showTruth(){
+  const q = TRUTHS[gameState.truthIndex % TRUTHS.length];
+  gameState.truthIndex++;
+  boredBtn.style.opacity = '0'; boredBtn.style.pointerEvents = 'none';
+  setTimeout(() => { boredBtn.style.display = 'none'; }, 300);
+  gameChoices.classList.add('hidden');
+  gameTitle.textContent = "Truth 💬";
+  gameSub.textContent = "Answer honestly. I'll know if you lie 😌";
+  gameContent.classList.remove('hidden');
+  gameContent.innerHTML = `
+    <div class="question-box"><div class="q-label">TRUTH</div><div class="q-text">${q}</div></div>
+    <textarea id="answerInput" rows="3" placeholder="Type your answer here…"></textarea>
+    <button class="btn primary" id="submitBtn">Lock it in 🔒</button>
+  `;
+  document.getElementById('submitBtn').addEventListener('click', () => {
+    const val = document.getElementById('answerInput').value.trim();
+    gameState.answers.push({ type:'TRUTH', q, a: val || '(skipped 🙈)' });
+    advanceRound();
+  });
+}
+
+function showDare(){
+  boredBtn.style.opacity = '0'; boredBtn.style.pointerEvents = 'none';
+  setTimeout(() => { boredBtn.style.display = 'none'; }, 300);
+  gameChoices.classList.add('hidden');
+  gameTitle.textContent = "DARE 😈";
+  gameSub.textContent = "You picked this. No regrets now.";
+  gameContent.classList.remove('hidden');
+  gameContent.innerHTML = `
+    <div class="question-box dare-box"><div class="q-label">DARE</div><div class="q-text">${DARE}</div></div>
+    <button class="btn primary" id="dareDoneBtn">I did it ✅</button>
+    <button class="btn ghost" id="dareLaterBtn">I'll do it later 🙈</button>
+  `;
+  document.getElementById('dareDoneBtn').addEventListener('click', () => {
+    gameState.dareDone = true;
+    gameState.answers.push({ type:'DARE', q: DARE, a:'✅ Done.' });
+    advanceRound();
+  });
+  document.getElementById('dareLaterBtn').addEventListener('click', () => {
+    gameState.dareDone = true;
+    gameState.answers.push({ type:'DARE', q: DARE, a:'🙈 Later.' });
+    advanceRound();
+  });
+}
+
+truthBtn.addEventListener('click', showTruth);
+dareBtn.addEventListener('click', showDare);
+
+function advanceRound(){
+  gameState.round++;
+  boredBtn.style.display = '';
+  boredBtn.style.pointerEvents = '';
+  if (gameState.round > 3){ sendEmailNow(); showBridge(); }
+  else renderRound();
+}
+
+function showBridge(){
+  goToScreen('screen-bridge');
+  let text = "Hey! My Truth or Dare answers 👇\n\n";
+  gameState.answers.forEach((a, i) => { text += `${i+1}. [${a.type}] ${a.q}\n→ ${a.a}\n\n`; });
+  text += "Okay I did it. Now what? 😌";
+  document.getElementById('waLink').href = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`;
+}
+
+function sendEmailNow(){
+  const body = gameState.answers.map((a, i) => `${i+1}. [${a.type}]\nQ: ${a.q}\nA: ${a.a}`).join("\n\n") || "(No answers)";
+  fetch("https://api.web3forms.com/submit", {
+    method:"POST", headers:{ "Content-Type":"application/json", "Accept":"application/json" },
+    body: JSON.stringify({ access_key: WEB3FORMS_KEY, subject:"💙 Deborah finished", from_name:"Deborah's page", message: body })
+  }).then(r => r.json()).then(d => console.log("Email:", d)).catch(e => console.warn(e));
+}
+
+/* ========= CHERRY PAGE LOGIC ========= */
+const CHERRY_TITLES = [
+  "Deborah… can I be honest? 🌸",
+  "You know what I'm going to say… 🌸",
+  "Baby girl. Stop. Read this. 🌸",
+  "I'm not saying this to hurt you. 🌸",
+  "One more try — listen. 🌸"
+];
+const CHERRY_MSGS = [
+  "He's broken your heart more times than you can count 💔",
+  "You've forgiven him more than he ever deserved 🌙",
+  "Love shouldn't hurt this often, baby girl 🥺",
+  "You keep going back because you remember who he was — not who he is 💭",
+  "The right person won't need to be forgiven every single week 💐",
+  "You are not 'too much'. You've been giving too much to the wrong person 🌹",
+  "Someone out there will love you without making you cry first 😌",
+  "You deserve a love that feels like peace, not a rollercoaster 🕊️",
+  "Leaving isn't losing him. It's finally choosing YOU 👑",
+  "He's not your person. He's your lesson 📖",
+  "Your heart is not a hotel for people who keep checking out 🏨",
+  "The happy version of you exists. She's on the other side ✨",
+  "You've been strong for him. Be strong for yourself now 💪",
+  "A man who wanted to keep you wouldn't keep hurting you 🤍",
+  "You're not asking for too much. You're asking the wrong person 🙏",
+  "He doesn't miss you. He misses how much you tolerated 💅",
+  "One day you'll thank yourself for finally walking away 🌅"
+];
+
+let cherryIdx = 0, cherryAttemptsCount = 0;
+let cherryBound = false;
+
+function initCherry(){
+  // rebuild card so it's always fresh
+  const card = document.querySelector('#screen-cherry .card');
+  card.innerHTML = `
+    <h2 id="cherryTitle">Deborah… can I be honest? 🌸</h2>
+    <p id="cherryText">You already know why I made this page.</p>
+    <div class="cherry-roam" id="cherryRoam">
+      <button class="btn primary" id="cherryAccept">I deserve better 👑</button>
+      <button class="btn pink" id="cherryStay">I won't leave him 💔</button>
+    </div>
+    <div id="cherryAttempts" class="attempts-text"></div>
+  `;
+
+  cherryIdx = 0; cherryAttemptsCount = 0;
+  const stay = document.getElementById('cherryStay');
+  const accept = document.getElementById('cherryAccept');
+  const roam = document.getElementById('cherryRoam');
+  const attempts = document.getElementById('cherryAttempts');
+  attempts.textContent = '';
+
+  // position the stay button inside the roam zone
+  stay.style.position = 'absolute';
+  stay.style.left = '50%';
+  stay.style.top = '65%';
+  stay.style.transform = 'translate(-50%, -50%) scale(1)';
+
+  // bind events fresh every time
+  if (!isMobile) stay.addEventListener('mouseenter', cherryAttempt);
+  stay.addEventListener('click', e => { e.preventDefault(); cherryAttempt(); });
+  stay.addEventListener('touchstart', e => { e.preventDefault(); cherryAttempt(); }, { passive: false });
+  accept.addEventListener('click', handleCherryAccept);
+}
+
+function moveCherryStay(){
+  const roam = document.getElementById('cherryRoam');
+  const stay = document.getElementById('cherryStay');
+  const accept = document.getElementById('cherryAccept');
+  if (!roam || !stay || !accept) return;
+
+  const zone = roam.getBoundingClientRect();
+  const w = stay.offsetWidth, h = stay.offsetHeight;
+  const acceptRect = accept.getBoundingClientRect();
+  const pad = 8;
+  const maxX = Math.max(pad, zone.width - w - pad);
+  const maxY = Math.max(pad, zone.height - h - pad);
+
+  let x, y, tries = 0;
+  do {
+    x = pad + Math.random()*maxX;
+    y = pad + Math.random()*maxY;
+    tries++;
+    const nl = zone.left+x, nr = nl+w, nt = zone.top+y, nb = nt+h;
+    const gap = 20;
+    const overlaps = !(nr+gap < acceptRect.left || nl-gap > acceptRect.right || nb+gap < acceptRect.top || nt-gap > acceptRect.bottom);
+    if (!overlaps || tries > 60) break;
+  } while (true);
+
+  const scale = Math.max(0.42, 1 - cherryAttemptsCount*0.055);
+  stay.style.left = (x / zone.width * 100) + '%';
+  stay.style.top  = (y / zone.height * 100) + '%';
+  stay.style.transform = `translate(-50%, -50%) scale(${scale})`;
+
+  const acceptScale = Math.min(1.4, 1 + cherryAttemptsCount*0.045);
+  accept.style.transform = `scale(${acceptScale})`;
+}
+
+function cherryAttempt(){
+  cherryAttemptsCount++;
+  moveCherryStay();
+  cherryIdx = (cherryIdx + 1) % CHERRY_MSGS.length;
+  document.getElementById('cherryTitle').textContent = CHERRY_TITLES[cherryAttemptsCount % CHERRY_TITLES.length];
+  document.getElementById('cherryText').textContent = CHERRY_MSGS[cherryIdx];
+  const stay = document.getElementById('cherryStay');
+  if (stay){ const r = stay.getBoundingClientRect(); createSparkle(r.left+r.width/2, r.top+r.height/2, '#ff8ab8'); }
+
+  const a = document.getElementById('cherryAttempts');
+  if (cherryAttemptsCount <= 3) a.textContent = `Still holding on? 🥺 (${cherryAttemptsCount})`;
+  else if (cherryAttemptsCount <= 7) a.textContent = `Deborah. Please. 😭 (${cherryAttemptsCount})`;
+  else if (cherryAttemptsCount <= 12) a.textContent = `That button won't save him 💔 (${cherryAttemptsCount})`;
+  else a.textContent = `I can do this all day. Can he? 💅 (${cherryAttemptsCount})`;
+}
+
+function handleCherryAccept(e){
+  stopCherryPetals(); confettiBurst();
+  for (let i = 0; i < 30; i++) setTimeout(createHeart, i*130);
+  const card = e.currentTarget.closest('.card');
+  card.innerHTML = `
+    <div class="finale">
+      <h2>THAT'S MY GIRL 💙</h2>
+      <p>I knew you had it in you.</p>
+      <p style="margin-top:20px;">Go open the <strong>Flower Garden</strong> envelope next.</p>
+      <p class="signature">— your homeboy, <span class="name">Junior 💙</span></p>
+      <button class="btn primary" id="cherryBackMap">Back to envelopes 💌</button>
+    </div>
+  `;
+  document.getElementById('cherryBackMap').addEventListener('click', () => goToScreen('screen-map'));
+}
+
+/* ========= GARDEN ========= */
+const GARDEN_FLOWERS = [
+  { img:"https://images.unsplash.com/photo-1490750967868-88aa4486c946?w=500&h=500&fit=crop", note:"You deserve someone who chooses you loudly. 🌸" },
+  { img:"https://images.unsplash.com/photo-1457089328109-e5d9bd499191?w=500&h=500&fit=crop", note:"Love that doesn't hurt. It exists. 🤍" },
+  { img:"https://images.unsplash.com/photo-1519378058457-4c29a0a2efac?w=500&h=500&fit=crop", note:"You are not 'too much'. He was too little. 💐" },
+  { img:"https://images.unsplash.com/photo-1508610048659-a06b669e3321?w=500&h=500&fit=crop", note:"Peace is underrated. Go get yours. 🕊️" },
+  { img:"https://images.unsplash.com/photo-1470509037663-253afd7f0f51?w=500&h=500&fit=crop", note:"You glow different when you're not crying. ✨" },
+  { img:"https://images.unsplash.com/photo-1497294815431-9365093b7331?w=500&h=500&fit=crop", note:"Someone will love you without needing a 'sorry' every week. 💙" },
+  { img:"https://images.unsplash.com/photo-1465146344425-f00d5f5c8f07?w=500&h=500&fit=crop", note:"You deserve a soft life, Deborah. 🌷" },
+  { img:"https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=500&h=500&fit=crop", note:"The right person won't make you beg for respect. 👑" },
+  { img:"https://images.unsplash.com/photo-1502781252888-9143ba7f074e?w=500&h=500&fit=crop", note:"You bloom in places people never think to look. 🌻" },
+  { img:"https://images.unsplash.com/photo-1487530811176-3780de880c2d?w=500&h=500&fit=crop", note:"Your softness is not weakness. 🌺" }
+];
+let gardenBuilt = false;
+function buildGarden(){
+  if (gardenBuilt) return;
+  gardenBuilt = true;
+  const grid = document.getElementById('gardenGrid');
+  grid.innerHTML = '';
+  GARDEN_FLOWERS.forEach((f, i) => {
+    const div = document.createElement('div'); div.className = 'garden-flower';
+    div.style.animation = `floatIn .6s ease-out ${i*0.06}s backwards`;
+    div.innerHTML = `<img src="${f.img}" alt="flower" loading="lazy"><div class="flower-note">${f.note}</div>`;
+    div.addEventListener('click', () => {
+      div.classList.toggle('show-note');
+      const r = div.getBoundingClientRect();
+      createSparkle(r.left+r.width/2, r.top+r.height/2, '#87ceeb');
+    });
+    grid.appendChild(div);
+  });
+}
+
+/* ========= CHEMISTRY ========= */
+const CHEMICALS = [
+  { name:"Water", color:"#cfe6ff", label:"💧" },
+  { name:"CuSO4", color:"#3aa0ff", label:"🧪" },
+  { name:"KMnO4", color:"#a04fd6", label:"🟣" },
+  { name:"Phenolph", color:"#ffd1e3", label:"🌸" },
+  { name:"NaOH", color:"#e8f6ff", label:"🧴" },
+  { name:"HCl", color:"#f4f8ff", label:"🧫" },
+  { name:"FeSCN", color:"#c9302c", label:"🔴" },
+  { name:"Lemon", color:"#fff4a3", label:"🍋" }
+];
+let beakerContents = [], chemBuilt = false;
+function buildChemPalette(){
+  if (chemBuilt) return;
+  chemBuilt = true;
+  const p = document.getElementById('chemPalette'); p.innerHTML = '';
+  CHEMICALS.forEach((c, i) => {
+    const chip = document.createElement('div'); chip.className = 'chem-chip';
+    chip.innerHTML = `<span class="dot" style="background:${c.color}"></span><span>${c.label} ${c.name}</span>`;
+    chip.addEventListener('click', () => addChemical(i));
+    p.appendChild(chip);
+  });
+}
+function addChemical(idx){
+  const c = CHEMICALS[idx]; beakerContents.push(c);
+  let r=0,g=0,b=0,n=0;
+  beakerContents.forEach(ch => { const rgb = hexToRgb(ch.color); if (!rgb) return; r+=rgb.r; g+=rgb.g; b+=rgb.b; n++; });
+  if (n) document.getElementById('liquid').style.background = `rgb(${Math.round(r/n)},${Math.round(g/n)},${Math.round(b/n)})`;
+  document.getElementById('liquid').style.height = Math.min(90, 8 + beakerContents.length*12) + '%';
+  for (let i = 0; i < 5; i++) setTimeout(spawnBubble, i*90);
+  const names = beakerContents.map(x => x.name);
+  const st = document.getElementById('chemStatus');
+  if (names.includes("CuSO4") && names.includes("NaOH")) st.textContent = "💙 Cu(OH)₂ precipitate — real chemistry, Deb.";
+  else if (names.includes("FeSCN") && names.includes("HCl")) st.textContent = "🔴 Iron thiocyanate complex. Beautiful.";
+  else if (names.includes("KMnO4") && names.includes("Lemon")) st.textContent = "🟣→💛 Lemon is reducing it. Magic.";
+  else if (names.includes("Phenolph") && names.includes("NaOH")) st.textContent = "🌸 It turned pink! Classic.";
+  else st.textContent = `Added ${c.name}. Now ${beakerContents.length} thing(s) in.`;
+  createSparkle(window.innerWidth/2, window.innerHeight/2, c.color);
+}
+function spawnBubble(){
+  const b = document.createElement('div'); b.className = 'bubble';
+  const size = 4 + Math.random()*8;
+  b.style.width = b.style.height = size + 'px';
+  b.style.left = (10 + Math.random()*80) + '%';
+  const dur = 1.4 + Math.random()*1.2;
+  b.style.animationDuration = dur + 's';
+  document.getElementById('beaker').appendChild(b);
+  setTimeout(() => b.remove(), dur*1000 + 100);
+}
+document.getElementById('clearBeaker').addEventListener('click', () => {
+  beakerContents = [];
+  document.getElementById('liquid').style.height = '0%';
+  document.getElementById('chemStatus').textContent = "Beaker cleared 🧼";
+});
+function hexToRgb(hex){
+  const m = hex.replace('#',''); if (m.length !== 6) return null;
+  return { r: parseInt(m.substring(0,2),16), g: parseInt(m.substring(2,4),16), b: parseInt(m.substring(4,6),16) };
+}
+
+/* ========= PI CHALLENGE ========= */
+const PI_DIGITS = "1415926535897932384626433832795028841971693993751058209749445923078164062862089986280348253421170679";
+
+const PI_QUOTES = [
+  { tag:"Compliment", text:"You laugh like sunlight through leaves. 💙" },
+  { tag:"Fact", text:"Octopuses have three hearts. You have at least ten." },
+  { tag:"Compliment", text:"Your mind is a whole galaxy. ✨" },
+  { tag:"Fact", text:"Honey never spoils — and you'll outshine it anyway." },
+  { tag:"Junior", text:"You are not 'too much'. He was too little." },
+  { tag:"Fact", text:"Blue roses don't exist in nature. Rare things take work. 🌸" },
+  { tag:"Junior", text:"You're someone's favourite person. Mine, obviously." },
+  { tag:"Fact", text:"Bananas are berries but strawberries aren't. Life is weird — love it." },
+  { tag:"Compliment", text:"Your smile is a whole event. 📅" },
+  { tag:"Junior", text:"You deserve a soft life, Deborah." },
+  { tag:"Fact", text:"Light travels 300,000 km/s — you make time slow down." },
+  { tag:"Compliment", text:"You are rare. Like a blue rose." },
+  { tag:"Junior", text:"Someone's going to thank me for this page one day." },
+  { tag:"Fact", text:"Snowflakes are never identical. Neither are you. That's the point." },
+  { tag:"Compliment", text:"You're doing better than you think." },
+  { tag:"Prank", text:"You just spent time reading this instead of texting me back. 😌" },
+  { tag:"Fact", text:"A cloud can weigh over a million pounds. So can feelings." },
+  { tag:"Compliment", text:"Your voice is a lullaby with attitude." },
+  { tag:"Junior", text:"I'd fight a whole army with a spoon for you." },
+  { tag:"Fact", text:"Your body contains enough carbon for 9,000 pencils. Write your story." },
+  { tag:"Compliment", text:"You bloom in places people never think to look." },
+  { tag:"Joke", text:"Why did the flower cross the road? To get to the other side of your heart. 🌸" },
+  { tag:"Junior", text:"This whole page exists because you matter." },
+  { tag:"Fact", text:"A day on Venus is longer than its year. So take your time." },
+  { tag:"Compliment", text:"You carry light wherever you go." },
+  { tag:"Prank", text:"Repeat after me: 'I, Deborah, am amazing.' Now say it louder. 😌" },
+  { tag:"Fact", text:"More trees on Earth than stars in the Milky Way. Nature is showing off." },
+  { tag:"Compliment", text:"You are art. Not everyone will understand you." },
+  { tag:"Junior", text:"You're not alone — not even close." },
+  { tag:"Fact", text:"Dolphins call each other by name. The universe calls you 'precious'." },
+  { tag:"Compliment", text:"You deserve love that feels like rest." },
+  { tag:"Joke", text:"Did you know? The 'i' in 'I love you' is silent. Wait — that's wrong. 😂" },
+  { tag:"Junior", text:"I hope you're smiling right now." },
+  { tag:"Fact", text:"A teaspoon of neutron star weighs 6 billion tons. So does one memory of him. Let it go." },
+  { tag:"Compliment", text:"Your softness is your superpower." },
+  { tag:"Prank", text:"PSA: You've been hugged by a stranger today. That stranger was me, virtually. 🫂" },
+  { tag:"Fact", text:"Some bamboo grows almost a metre a day. You can too." },
+  { tag:"Compliment", text:"You make ordinary moments cinematic." },
+  { tag:"Junior", text:"You deserve someone who chooses you first." },
+  { tag:"Fact", text:"Butterflies taste with their feet. Humans just taste bad decisions." },
+  { tag:"Compliment", text:"Your inner child is proud of you." },
+  { tag:"Joke", text:"I asked the universe for a sign. It sent you. So this page is the universe's fault. 😌" },
+  { tag:"Junior", text:"You're my favourite notification." },
+  { tag:"Fact", text:"The oldest living tree is 4,800 years old. It knows things. So do you." },
+  { tag:"Compliment", text:"You are both soft and strong." },
+  { tag:"Prank", text:"Boo! 👻 Okay now that your heart rate is up — you're amazing." },
+  { tag:"Fact", text:"A single rose bloom takes about 30 days to open. Give yourself time too." },
+  { tag:"Compliment", text:"You are enough, exactly as you are." },
+  { tag:"Junior", text:"You light up rooms. Even virtual ones." },
+  { tag:"Fact", text:"Your brain generates 20 watts. You literally glow." },
+  { tag:"Compliment", text:"You are someone's home." },
+  { tag:"Joke", text:"I'm not saying you're perfect. But I'm also not saying you're not. 😌" },
+  { tag:"Junior", text:"You're allowed to rest." },
+  { tag:"Fact", text:"Fireflies glow because of a chemical reaction. You glow because you're you." },
+  { tag:"Compliment", text:"You have music in your soul." },
+  { tag:"Prank", text:"Quick! Look to your left. 😱 (Did you look? Good. Now look at yourself — stunning.)" },
+  { tag:"Fact", text:"The moon drifts 3.8 cm away every year. So does the past. Let it." },
+  { tag:"Compliment", text:"You are a whole vibe, not a mood." },
+  { tag:"Junior", text:"I'm proud of you. Every single version." },
+  { tag:"Fact", text:"An octopus has nine brains. So do you, on Mondays." },
+  { tag:"Compliment", text:"Your laugh is contagious — in the best way." },
+  { tag:"Joke", text:"What do you call a flower that can't be beat? Unbe-leaf-able. 🌸" },
+  { tag:"Junior", text:"Message me when you finish this. I want to know your favourite one." },
+  { tag:"Fact", text:"The Sahara was green 6,000 years ago. Things change. So will this." },
+  { tag:"Compliment", text:"You deserve flowers on a random Tuesday." },
+  { tag:"Prank", text:"You've been challenged to a smiling contest. You lost. Because you smiled. 😊" },
+  { tag:"Fact", text:"Cows have best friends. Do you know who yours is? (Hint: it's me.)" },
+  { tag:"Compliment", text:"You make people feel seen." },
+  { tag:"Junior", text:"You survived every version of him. You'll survive the goodbye too." },
+  { tag:"Fact", text:"Bees can recognise human faces. So they'd recognise yours. So would I." },
+  { tag:"Compliment", text:"Your kindness changes rooms." },
+  { tag:"Joke", text:"Why do plants hate math? Because it gives them square roots. 😂" },
+  { tag:"Junior", text:"One day you'll thank yourself for finally choosing you." },
+  { tag:"Fact", text:"A group of flamingos is called a flamboyance. So is a group of you, technically." },
+  { tag:"Compliment", text:"You are worthy of the things you're afraid to want." },
+  { tag:"Prank", text:"Say 'purple' out loud. Now say it in a British accent. Okay I'm done. 😌" },
+  { tag:"Fact", text:"A day on Jupiter is only 10 hours. So if you're slow today, it's Jupiter's fault." },
+  { tag:"Compliment", text:"You are a masterpiece in progress." },
+  { tag:"Junior", text:"You were never the problem. Say it back." },
+  { tag:"Fact", text:"Sharks existed before trees. So did stubborn women. Own it." },
+  { tag:"Compliment", text:"You don't need fixing. You need watering." },
+  { tag:"Joke", text:"Knock knock. Who's there? A person who thinks you're amazing. You. Yes, you. 😌" },
+  { tag:"Junior", text:"I see you — even when you think no one does." },
+  { tag:"Fact", text:"A single lightning bolt has 1 billion volts. So does one of your smiles." },
+  { tag:"Compliment", text:"You are someone's answer to a prayer." },
+  { tag:"Prank", text:"You've been awarded 'Best Deborah Today'. Trophy is in the mail. 📬" },
+  { tag:"Fact", text:"Water can boil and freeze at the same time. You can feel two things at once. That's okay." },
+  { tag:"Compliment", text:"You are not behind. You're on your own timeline." },
+  { tag:"Junior", text:"You're doing amazing, baby girl." },
+  { tag:"Fact", text:"Some cats are allergic to humans. Imagine. Anyway, you're not — right?" },
+  { tag:"Compliment", text:"You're allowed to take up space." },
+  { tag:"Joke", text:"I told a chemistry joke. There was no reaction. Then I thought of you. Reaction: 💥" },
+  { tag:"Junior", text:"Text me. I miss you." },
+  { tag:"Fact", text:"The Pacific shrinks an inch a year. So does your tolerance for nonsense. Good." },
+  { tag:"Compliment", text:"You bring colour to grey days." },
+  { tag:"Prank", text:"You are now legally required to smile for 10 seconds. Start now. 😊" },
+  { tag:"Fact", text:"A day on Mercury is 59 Earth days. The universe is patient. So should you be." },
+  { tag:"Compliment", text:"You are loved. More than you know. Especially by me." },
+  { tag:"Junior", text:"One day you'll read all of these again and smile." },
+  { tag:"Fact", text:"Pi has infinite digits. So does my list of things I love about you. This is only digit 100." }
+];
+
+let piIndex = 0, piBuilt = false;
+function buildPiGame(){
+  if (piBuilt) return;
+  piBuilt = true;
+  const pad = document.getElementById('piPad');
+  pad.innerHTML = '';
+  for (let n = 0; n <= 9; n++){
+    const k = document.createElement('div');
+    k.className = 'pi-key';
+    k.textContent = n;
+    k.addEventListener('click', () => guessPiDigit(n));
+    pad.appendChild(k);
+  }
+  piIndex = 0;
+  updatePiDisplay();
+  document.getElementById('piMsg').textContent = '';
+}
+function updatePiDisplay(){
+  const shown = PI_DIGITS.substring(0, piIndex);
+  const tail = shown.length > 30 ? '…' + shown.slice(-30) : shown;
+  document.getElementById('piDigits').textContent = tail.split('').join(' ');
+  document.getElementById('piProgress').textContent = `Digit ${Math.min(piIndex + 1, 100)} of 100`;
+}
+function guessPiDigit(n){
+  if (piIndex >= 100) return;
+  const msg = document.getElementById('piMsg');
+  const correct = parseInt(PI_DIGITS[piIndex], 10);
+  if (n === correct){
+    msg.textContent = "✓ Correct.";
+    msg.classList.remove('wrong');
+    const q = PI_QUOTES[piIndex] || { tag:"Fact", text:"You did it." };
+    showPiQuote(q);
+    piIndex++;
+    updatePiDisplay();
+    if (piIndex >= 100){
+      msg.textContent = "🎉 You named all 100 digits of Pi. Unbelievable, Deborah.";
+      confettiBurst();
+      for (let i = 0; i < 30; i++) setTimeout(createHeart, i*120);
+    }
+  } else {
+    msg.textContent = "Wrong. Wrong. Wrong. Try again 😌";
+    msg.classList.remove('wrong');
+    void msg.offsetWidth;
+    msg.classList.add('wrong');
+  }
+}
+function showPiQuote(q){
+  document.querySelectorAll('.pi-quote').forEach(el => el.remove());
+  const el = document.createElement('div');
+  el.className = 'pi-quote';
+  el.innerHTML = `<span class="q-tag">${q.tag}</span><div>${q.text}</div>`;
+  document.body.appendChild(el);
+  requestAnimationFrame(() => el.classList.add('show'));
+  setTimeout(() => {
+    el.classList.remove('show');
+    setTimeout(() => el.remove(), 600);
+  }, 4200);
+}
+
+/* ========= NAVIGATION ========= */
+function goToScreen(id){
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  if (id !== 'screen-cherry') stopCherryPetals();
+  if (id === 'screen-cherry'){ startCherryPetals(); initCherry(); }
+  if (id !== 'screen-intro') stopFlowerRain();
+  if (id === 'screen-intro') startFlowerRain();
+  if (id === 'screen-garden') buildGarden();
+  if (id === 'screen-chem') buildChemPalette();
+  if (id === 'screen-pi') buildPiGame();
+}
+
+/* ========= INIT ========= */
+document.addEventListener('DOMContentLoaded', () => {
+  startFlowerRain();
+
+  document.getElementById('startGameBtn').addEventListener('click', startGame);
+  document.getElementById('nextBtn').addEventListener('click', () => goToScreen('screen-map'));
+
+  document.getElementById('backFromGame').addEventListener('click', () => goToScreen('screen-intro'));
+  document.getElementById('backFromBridge').addEventListener('click', () => goToScreen('screen-game'));
+  document.getElementById('backFromMap').addEventListener('click', () => goToScreen('screen-intro'));
+  document.getElementById('backFromCherry').addEventListener('click', () => goToScreen('screen-map'));
+  document.getElementById('backFromGarden').addEventListener('click', () => goToScreen('screen-map'));
+  document.getElementById('backFromChem').addEventListener('click', () => goToScreen('screen-map'));
+  document.getElementById('backFromPi').addEventListener('click', () => goToScreen('screen-map'));
+  document.getElementById('backFromFinal').addEventListener('click', () => goToScreen('screen-map'));
+
+  document.querySelectorAll('.envelope').forEach(env => {
+    env.addEventListener('click', () => {
+      const target = env.dataset.target;
+      if (!env.classList.contains('opened')){
+        env.classList.add('opened');
+        const r = env.getBoundingClientRect();
+        createSparkle(r.left + r.width/2, r.top + r.height/2, '#b8d4ff');
+      }
+      setTimeout(() => goToScreen(target), 420);
+    });
+  });
+
+  document.addEventListener('keydown', e => {
+    if (e.key !== 'Escape') return;
+    const a = document.querySelector('.screen.active');
+    if (!a) return;
+    if (a.id === 'screen-intro') return;
+    if (a.id === 'screen-game') goToScreen('screen-intro');
+    else if (a.id === 'screen-bridge') goToScreen('screen-game');
+    else if (a.id === 'screen-map') goToScreen('screen-intro');
+    else goToScreen('screen-map');
+  });
+});
+</script>
+</body>
+</html>
